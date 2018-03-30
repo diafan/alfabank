@@ -35,7 +35,7 @@ class Payment_alfabank_model extends Diafan {
         Custom::inc('plugins/httprequest/httprequest.php');
 
         try {
-            $url = 'https://web.rbsuat.com/ab/rest/';
+            $url = (!empty($params['test']) ? 'https://web.rbsuat.com/ab/rest/' : 'https://pay.alfabank.ru/payment/rest/');
             
       
             // регистрация заказа
