@@ -35,11 +35,11 @@ class Payment_alfabank_model extends Diafan {
 
     private function getOrderBundle($order_id, $taxType = 0) {
         $info = $this->diafan->_shop->order_get($order_id);
-        
+
         // цены передаются без учета скидки общей...
         $discount = 0;
-        if(!empty($info['discount_summ'])) {
-            $discount = $this->parse_number($info['discount_summ'])/intval($info['count']);
+        if (!empty($info['discount_summ'])) {
+            $discount = $this->parse_number($info['discount_summ']) / intval($info['count']);
         }
 
         $result = array(
@@ -62,11 +62,11 @@ class Payment_alfabank_model extends Diafan {
 
             $result['cartItems']['items'][] = $item;
         }
-        
-        if(!empty($info['delivery'])) {
+
+        if (!empty($info['delivery'])) {
             $item = array();
             $item['positionId'] = count($info['rows']);
-            $item['name']=$info['delivery']['name'];
+            $item['name'] = $info['delivery']['name'];
             $item['quantity'] = array(
                 'value' => 1,
                 'measure' => 'шт'
@@ -74,7 +74,7 @@ class Payment_alfabank_model extends Diafan {
             $item['itemCode'] = $info['delivery_id'];
             $item['itemPrice'] = $this->parse_number($info['delivery']['summ']) * 100;
             $item['tax'] = array('taxType' => intval($taxType));
-            
+
             $result['cartItems']['items'][] = $item;
         }
 
@@ -105,7 +105,7 @@ class Payment_alfabank_model extends Diafan {
                                 'returnUrl' => BASE_PATH . 'payment/get/alfabank/success/?' . rand(1111, 9999),
                                 'failUrl' => BASE_PATH . 'payment/get/alfabank/fail/?' . rand(1111, 9999),
                                 'description' => $pay['desc'],
-                                'orderBundle' => $this->getOrderBundle($pay['element_id'], $params['tax']),
+                                'orderBundle ' => $this->getOrderBundle($pay['element_id'], $params['tax']),
                                 'taxSystem' => $params['taxationSystem']
                             )
                     )->acceptJson();
